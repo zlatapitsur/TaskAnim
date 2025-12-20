@@ -4,14 +4,6 @@ public class Collectible : MonoBehaviour
 {
     private bool playerInRange = false;
 
-    void Update()
-    {
-        if (playerInRange && Input.GetKeyDown(KeyCode.E))
-        {
-            Destroy(gameObject); // видаляємо предмет зі сцени
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -25,6 +17,15 @@ public class Collectible : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRange = false;
+        }
+    }
+
+    void Update()
+    {
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            ItemCounter.Instance.AddItem();
+            Destroy(gameObject);
         }
     }
 }

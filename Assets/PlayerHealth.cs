@@ -49,4 +49,17 @@ public class PlayerHealth : MonoBehaviour
             healthText.text = "HP: " + Mathf.RoundToInt(health).ToString();
         }
     }
+
+    public float GetHealth(){
+        return health;
+    }
+
+    public void SetHealth(float newHealthValue){
+        health = Mathf.Clamp(newHealthValue, 0f, maxHealth);
+
+        if (health > 0f)
+           isDead = false;
+
+        UpdateHealthUI();
+    }
 }
