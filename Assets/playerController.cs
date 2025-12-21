@@ -68,5 +68,7 @@ public class playerController : MonoBehaviour
         {
             anim.SetBool("IsFall", false);
         }
+
+        Debug.Log($"HP={health.GetHealth()} grounded={groundCheck.isGrounded} yVel={rb.velocity.y}");
     }
 }

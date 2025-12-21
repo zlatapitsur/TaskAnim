@@ -2,7 +2,17 @@
 
 public class Collectible : MonoBehaviour
 {
+    [SerializeField] private string id;
+    public string Id => id;
     private bool playerInRange = false;
+
+    private void Awake()
+    {
+        CollectibleManager.Instance.Register(this);
+
+        if (string.IsNullOrEmpty(id))
+            id = gameObject.name; 
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -25,7 +35,10 @@ public class Collectible : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             ItemCounter.Instance.AddItem();
-            Destroy(gameObject);
+            CollectibleManager.Instance.MarkCollected(id);
+
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

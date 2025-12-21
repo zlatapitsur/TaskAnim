@@ -49,6 +49,7 @@ public class PlayerSave : MonoBehaviour
         //data.coins = coins;
         data.health = playerHealth.GetHealth();
         data.coins = ItemCounter.Instance.GetItems();
+        data.collectedIds = CollectibleManager.Instance.GetCollectedIds();
 
         data.position = new float[3]
         {
@@ -70,6 +71,7 @@ public class PlayerSave : MonoBehaviour
         //coins = data.coins;
         playerHealth.SetHealth(data.health);
         ItemCounter.Instance.SetItems(data.coins);
+        CollectibleManager.Instance.ApplyCollectedIds(data.collectedIds);
         transform.position = new Vector3(
             data.position[0],
             data.position[1],
