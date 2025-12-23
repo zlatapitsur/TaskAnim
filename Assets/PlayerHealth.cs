@@ -42,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // odnowienie zdrowia
     private void UpdateHealthUI()
     {
         if (healthText != null)
@@ -50,15 +51,24 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // getter
     public float GetHealth(){
         return health;
     }
 
+    // setter
     public void SetHealth(float newHealthValue){
         health = Mathf.Clamp(newHealthValue, 0f, maxHealth);
 
         if (health > 0f)
-           isDead = false;
+        {
+            isDead = false;
+            if (anim != null)
+            {
+                anim.ResetTrigger("IsDead");
+                anim.Play("Idle", 0, 0f);
+            }
+        }
 
         UpdateHealthUI();
     }

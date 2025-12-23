@@ -69,6 +69,19 @@ public class playerController : MonoBehaviour
             anim.SetBool("IsFall", false);
         }
 
-        Debug.Log($"HP={health.GetHealth()} grounded={groundCheck.isGrounded} yVel={rb.velocity.y}");
+    }
+
+    // zwraca do normalnego stanu jezeli gracz ma więcej niz 0 hp
+    public void ResetAfterLoad()
+    {
+        if (health.GetHealth() <= 0f) return;
+
+        health.isDead = false;
+        anim.ResetTrigger("IsDead");
+        anim.SetBool("IsRun", false);
+        anim.SetBool("IsJump", false);
+        anim.SetBool("IsFall", false);
+        anim.Play("Idle", 0, 0f);
+        rb.velocity = Vector2.zero;
     }
 }

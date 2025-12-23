@@ -5,18 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerSave : MonoBehaviour
 {
-    //public int health = 100;
-    //public int coins = 0;
-    [SerializeField] private PlayerHealth playerHealth;
-    [SerializeField] private ItemCounter itemCounter;
 
-
-    //[SerializeField] private Text coinsText;
-
-    //private void Start()
-    //{
-    //    UpdateText();
-    //}
+    [SerializeField] private PlayerHealth playerHealth; //referencja do zdrowia
+    [SerializeField] private ItemCounter itemCounter; //referencja do licznika
 
     private void Update()
     {
@@ -30,23 +21,17 @@ public class PlayerSave : MonoBehaviour
         }
     }
 
-    //public void AddCoin()
-    //{
-    //    coins++;
-    //    UpdateText();
-    //}
-
-    //private void UpdateText()
-    //{
-    //    if (coinsText != null)
-    //        coinsText.text = "Items: " + coins;
-    //}
-
     public void Save()
     {
+        // zeby gracz nie mógł siebie zapisać kiedy zmarł
+        if (playerHealth.isDead)
+        {       
+            Debug.Log("You can't Save yourself. YOU ARE DEAD");
+            return;
+        }
+
+        // zapis ostatniego stanu
         SaveData data = new SaveData();
-        //data.health = health;
-        //data.coins = coins;
         data.health = playerHealth.GetHealth();
         data.coins = ItemCounter.Instance.GetItems();
         data.collectedIds = CollectibleManager.Instance.GetCollectedIds();
@@ -67,8 +52,7 @@ public class PlayerSave : MonoBehaviour
         SaveData data = SaveSystem.Load();
         if (data == null) return;
 
-        //health = data.health;
-        //coins = data.coins;
+        // odczyt ostatniego zapisanego stanu
         playerHealth.SetHealth(data.health);
         ItemCounter.Instance.SetItems(data.coins);
         CollectibleManager.Instance.ApplyCollectedIds(data.collectedIds);
@@ -78,7 +62,12 @@ public class PlayerSave : MonoBehaviour
             data.position[2]
         );
 
-        //UpdateText();
+
+        var pc = GetComponent<playerController>();
+        // zeby playerController nie był null
+        if (pc != null)
+            pc.ResetAfterLoad();
+
         Debug.Log("Game Loaded");
     }
 }

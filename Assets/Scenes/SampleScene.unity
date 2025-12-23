@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c71b1c0dcd219047abc0ef36ede4a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
+  id: apple
 --- !u!1 &343242098
 GameObject:
   m_ObjectHideFlags: 0
@@ -4447,6 +4447,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  isGrounded: 0
 --- !u!1 &958846360
 GameObject:
   m_ObjectHideFlags: 0
@@ -7257,7 +7258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c71b1c0dcd219047abc0ef36ede4a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 3
+  id: flowers
 --- !u!70 &1640417634
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7588,7 +7589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c71b1c0dcd219047abc0ef36ede4a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 2
+  id: hat
 --- !u!70 &1664181616
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

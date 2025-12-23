@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
 {
-    public static CollectibleManager Instance;
+    public static CollectibleManager Instance; //Singleton
 
-    private List<Collectible> all = new List<Collectible>();
-    private HashSet<string> collectedIds = new HashSet<string>();
+    private List<Collectible> all = new List<Collectible>(); //lista identyfikatorów itemów
+    private HashSet<string> collectedIds = new HashSet<string>(); //lista zebranych identyfikatorów itemów
 
+    //inicjalizacja Singleton
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,24 +19,34 @@ public class CollectibleManager : MonoBehaviour
         Instance = this;
     }
 
-    public void Register(Collectible c)
+    //zapisywanie itema do wszystkich w Managerze
+    public void Register(Collectible item)
     {
-        if (!all.Contains(c))
-            all.Add(c);
+        if (!all.Contains(item))
+            all.Add(item);
     }
 
+    // dodajemy item do zebrancyh
     public void MarkCollected(string id)
     {
         collectedIds.Add(id);
     }
 
+    //zwracamy tablicę Id
     public string[] GetCollectedIds()
     {
-        var arr = new string[collectedIds.Count];
-        collectedIds.CopyTo(arr);
-        return arr;
+        string[] ids = new string[collectedIds.Count];
+        int index = 0;
+
+        foreach (string id in collectedIds)
+        {
+            ids[index] = id;
+            index++;
+        }
+        return ids;
     }
 
+    // zwraca itemy podczas Load jak przed Save
     public void ApplyCollectedIds(string[] idsFromSave)
     {
         collectedIds.Clear();
@@ -45,11 +56,11 @@ public class CollectibleManager : MonoBehaviour
                 collectedIds.Add(id);
         }
 
-        foreach (var c in all)
+        foreach (Collectible collectible in all)
         {
-            if (c == null) continue;
-            bool shouldBeDisabled = collectedIds.Contains(c.Id);
-            c.gameObject.SetActive(!shouldBeDisabled);
+            if (collectible == null) continue;
+            bool wasCollected = collectedIds.Contains(collectible.Id);
+            collectible.gameObject.SetActive(!wasCollected);
         }
     }
 }

@@ -11,10 +11,10 @@ public class OpenDoor10c : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    // void Update()
+    // {
         
-    }
+    // }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
