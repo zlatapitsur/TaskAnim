@@ -319,7 +319,7 @@ public class EnemyAI : MonoBehaviour
         MoveTowards(targetPos);
     }
 
-    // ---------------- RETURN HOME ----------------
+    // ---------------- RETURN HOME ---------------
     void ReturnHome(float minX)
     {
         if (anim != null) anim.SetBool("IsMoving", true);
